@@ -5,3 +5,5 @@ Pillow==8.4.0
 streamlit==1.2.0
 torch
 torchvision
+freeglut3-dev
+libgtk2.0-dev
