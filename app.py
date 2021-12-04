@@ -17,8 +17,11 @@ if f:
     tfile = tempfile.NamedTemporaryFile(delete=False)
     tfile.write(f.read())
     vf = cv.VideoCapture(tfile.name)
+    video_file = open(tfile.name, 'rb')
+    video_bytes = video_file.read()
+
+    st.video(video_bytes)
 
     ans = predict_on_video_set(
         [tfile.name], num_workers=4)
-
     st.success(f"The video is a deepfake with a probability of {ans[0]:.2f}")
