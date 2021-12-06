@@ -37,8 +37,8 @@ facedet.load_weights("./blazeface/blazeface.pth")
 facedet.load_anchors("./blazeface/anchors.npy")
 _ = facedet.train(False)
 
-
-frames_per_video = 64  # frame_h * frame_l No of faces
+# frame_h * frame_l No of faces
+frames_per_video = 256
 video_reader = VideoReader()
 
 
@@ -56,7 +56,7 @@ std = [0.229, 0.224, 0.225]
 normalize_transform = Normalize(mean, std)
 
 
-def isotropically_resize_image(img, size, resample=cv2.INTER_AREA):
+def isotropically_resize_image(img, size, resample: int = cv2.INTER_AREA):
     h, w = img.shape[:2]
     if w > h:
         h = h * size // w
@@ -79,26 +79,26 @@ def make_square_image(img):
     return cv2.copyMakeBorder(img, t, b, l, r, cv2.BORDER_CONSTANT, value=0)
 
 
-class MyResNeXt(models.resnet.ResNet):
+class MyResNet(models.resnet.ResNet):
     def __init__(self, training=True):
-        super(MyResNeXt, self).__init__(block=models.resnet.Bottleneck,
-                                        layers=[3, 4, 6, 3],
-                                        groups=32,
-                                        width_per_group=4)
+        super(MyResNet, self).__init__(block=models.resnet.Bottleneck,
+                                       layers=[3, 4, 6, 3],
+                                       groups=32,
+                                       width_per_group=4)
         self.fc = nn.Linear(2048, 1)
 
 
 checkpoint = torch.load(
-    "./deepfakes_inference_demo/resnext.pth", map_location=gpu)
+    "./deepfakes_inference_demo/resnet18.pth", map_location=gpu)
 
-model = MyResNeXt().to(gpu)
+model = MyResNet().to(gpu)
 model.load_state_dict(checkpoint)
 _ = model.eval()
 
 del checkpoint
 
 
-def predict_on_video(video_path, batch_size):
+def predict_on_video(video_path: str, batch_size: int) -> float:
     try:
         faces = face_extractor.process_video(video_path)
         face_extractor.keep_only_best_face(faces)
