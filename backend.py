@@ -79,19 +79,19 @@ def make_square_image(img):
     return cv2.copyMakeBorder(img, t, b, l, r, cv2.BORDER_CONSTANT, value=0)
 
 
-class MyResNet(models.resnet.ResNet):
+class MyResNext(models.resnet.ResNet):
     def __init__(self, training=True):
-        super(MyResNet, self).__init__(block=models.resnet.Bottleneck,
-                                       layers=[3, 4, 6, 3],
-                                       groups=32,
-                                       width_per_group=4)
+        super(MyResNext, self).__init__(block=models.resnet.Bottleneck,
+                                        layers=[3, 4, 6, 3],
+                                        groups=32,
+                                        width_per_group=4)
         self.fc = nn.Linear(2048, 1)
 
 
 checkpoint = torch.load(
-    "./deepfakes_inference_demo/resnet18.pth", map_location=gpu)
+    "./deepfakes_inference_demo/resnet.pth", map_location=gpu)
 
-model = MyResNet().to(gpu)
+model = MyResNext().to(gpu)
 model.load_state_dict(checkpoint)
 _ = model.eval()
 
