@@ -24,4 +24,9 @@ if f:
 
     ans = predict_on_video_set(
         [tfile.name], num_workers=4)
-    st.success(f"The video is a deepfake with a probability of {ans[0]:.2f}")
+
+    if (ans[0] - 0.5 < 1e-6):
+        st.success(
+            f"The video is a deepfake with a probability of {ans[0]:.2f}")
+    else:
+        st.error(f"The video is a deepfake with a probability of {ans[0]:.2f}")
