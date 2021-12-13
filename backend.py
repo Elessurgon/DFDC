@@ -38,7 +38,7 @@ facedet.load_anchors("./blazeface/anchors.npy")
 _ = facedet.train(False)
 
 # frame_h * frame_l No of faces
-frames_per_video = 256
+frames_per_video = 64
 video_reader = VideoReader()
 
 
