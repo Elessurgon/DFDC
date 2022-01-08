@@ -1,2 +1,4 @@
 __pycache__
 deepfake_xception_trained_model/model_*
+/onnx
+*.png
