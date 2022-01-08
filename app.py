@@ -37,7 +37,7 @@ st.markdown(
     .st-bv {
         background-color: #09ab3b69;
     }
-    .st-bu .st-br {
+    .st-bu, .st-br  {
         color: #000000;
     }
     .link {
