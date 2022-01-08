@@ -137,7 +137,7 @@ if click:
     button.empty()
 
 if st.session_state.show:
-    st.markdown('<a class="link" target="_self" href="http://localhost:8501/"><b>Go Home</b></a>', unsafe_allow_html=True)
+    st.markdown('<a class="link" target="_self" href="https://share.streamlit.io/elessurgon/dfdc/app.py"><b>Go Home</b></a>', unsafe_allow_html=True)
 
     f = st.file_uploader("Upload file",  type=['mp4'])
 
