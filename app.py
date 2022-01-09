@@ -8,7 +8,8 @@ import streamlit as st
 from backend import predict_on_video_set
 import base64
 
-st.set_page_config(page_title='DFDC', layout = 'wide', initial_sidebar_state = 'auto')
+st.set_page_config(page_title='DFDC', layout='wide',
+                   initial_sidebar_state='auto')
 
 st.markdown(
     """
@@ -58,46 +59,46 @@ st.write("DEPARTMENT OF MASTER OF COMPUTER APPLICATIONS  \nBengaluru- 560059")
 
 
 st.markdown("""<hr>""",
-    unsafe_allow_html=True)
+            unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown(
-    f"""
+        f"""
     <div style="text-align: right;">
         <h5 style="color: #000000">Project By:</h5>
     </div>
     """,
-    unsafe_allow_html=True
-)
+        unsafe_allow_html=True
+    )
 
 with col2:
     st.write("M Shamanth  \n1RV20MC038")
 
 with col3:
     st.markdown(
-    f"""
+        f"""
     <div style="text-align: left;">
         Mathias Russel Rudolf Richard<br>1RV20MC047
     </div>
     """,
-    unsafe_allow_html=True
-)
+        unsafe_allow_html=True
+    )
     st.write("")
 
 
 col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown(
-    f"""
+        f"""
     <div style="text-align: right;">
         <h5 style="color: #000000">Under the Guidance of:</h5>
     </div>
     """,
-    unsafe_allow_html=True
-)
+        unsafe_allow_html=True
+    )
 with col2:
-    
+
     st.write("Dr. Vijayalakshmi M.N  \nAssociate Professor  \nDepartment of MCA  \nRV College of Engineering®  \nBengaluru-560059")
 
 
@@ -108,7 +109,6 @@ st.markdown(
 
 st.header("""Deepfakes Video detection app""")
 
-
 f = st.file_uploader("Upload file",  type=['mp4'])
 
 if f:
@@ -117,11 +117,13 @@ if f:
     vf = cv.VideoCapture(tfile.name)
     video_file = open(tfile.name, 'rb')
     video_bytes = video_file.read()
+
     st.video(video_bytes)
 
     ans = predict_on_video_set([tfile.name], num_workers=4)
 
     if (ans[0] - 0.5 < 1e-6):
-        st.success(f"The video is a deepfake with a probability of {ans[0]:.2f}")
+        st.success(
+            f"The video is a deepfake with a probability of {ans[0]:.2f}")
     else:
         st.error(f"The video is a deepfake with a probability of {ans[0]:.2f}")
