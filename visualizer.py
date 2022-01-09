@@ -22,7 +22,7 @@ if True:
 
 batch_size = 64
 input_size = 224
-video_path = "./test_videos/testing.mp4"
+video_path = "./test_videos/testing_2.mp4"
 
 warnings.filterwarnings("ignore")
 gpu = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

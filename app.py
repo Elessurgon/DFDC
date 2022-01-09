@@ -7,7 +7,7 @@ from PIL import Image
 import streamlit as st
 from backend import predict_on_video_set
 import base64
-
+from visualizer import make_vid_test
 st.set_page_config(page_title='DFDC', layout='wide',
                    initial_sidebar_state='auto')
 
@@ -118,7 +118,16 @@ if f:
     video_file = open(tfile.name, 'rb')
     video_bytes = video_file.read()
 
-    st.video(video_bytes)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.video(video_bytes)
+
+    make_vid_test(tfile.name)
+    covnet = open("./output.mp4", 'rb')
+    video_bytes_covnet = covnet.read()
+
+    with c2:
+        st.video(video_bytes_covnet)
 
     ans = predict_on_video_set([tfile.name], num_workers=4)
 
