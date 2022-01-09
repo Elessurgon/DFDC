@@ -118,16 +118,13 @@ if f:
     video_file = open(tfile.name, 'rb')
     video_bytes = video_file.read()
 
-    c1, c2 = st.columns(2)
-    with c1:
-        st.video(video_bytes)
+    st.video(video_bytes)
 
     make_vid_test(tfile.name)
     covnet = open("./output.mp4", 'rb')
     video_bytes_covnet = covnet.read()
 
-    with c2:
-        st.video(video_bytes_covnet)
+    st.video(video_bytes_covnet)
 
     ans = predict_on_video_set([tfile.name], num_workers=4)
 
