@@ -73,7 +73,7 @@ def get_model():
     return model_resnet
 
 
-def get_model_layers(model_children, verbose=False):
+def get_model_layers(model, verbose=False):
     model_weights = []
     conv_layers = []
     model_children = list(model.children())
